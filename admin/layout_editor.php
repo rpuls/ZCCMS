@@ -24,7 +24,7 @@ echo "</div>";
 //right panel (preview)
 
 echo "<div class='col-md-6 col-xs-12'>";
-echo "bbbbbb bbbbb bbbbbbb bbbb bbb bbbbbb bbbbbbb bbbbbbbbb bbbbbbbbbbb bbbb bbbbbbb bbbbbbbb bbbbb bbbbbbbb bbb bbbbb
+echo "dummy text to get a feel about the collumns bbbb bbbbbbbbbbb bbbb bbbbbbb bbbbbbbb bbbbb bbbbbbbb bbb bbbbb
 bbbbbb bbbbb bbbbbbb bbbb bbb bbbbbb bbbbbbb bbbbbbbbb bbbbbbbbbbb bbbb bbbbbbb bbbbbbbb bbbbb bbbbbbbb bbb bbbbb
 bbbbbb bbbbb bbbbbbb bbbb bbb bbbbbb bbbbbbb bbbbbbbbb bbbbbbbbbbb bbbb bbbbbbb bbbbbbbb bbbbb bbbbbbbb bbb bbbbb
 bbbbbb bbbbb bbbbbbb bbbb bbb bbbbbb bbbbbbb bbbbbbbbb bbbbbbbbbbb bbbb bbbbbbb bbbbbbbb bbbbb bbbbbbbb bbb bbbbb
@@ -39,7 +39,26 @@ bbbbbb bbbbb bbbbbbb bbbb bbb bbbbbb bbbbbbb bbbbbbbbb bbbbbbbbbbb bbbb bbbbbbb 
 echo "</div>";
 
 echo "</div>";	//row end
+echo "<button id='ajaxTest'>ajax test</button><span id='ajaxResponse'></span>";
 echo "</div>";	//blue box div end
 echo "</div>\n"; //show/hide div end
+
+//javascript
+echo '
+<script>
+    $("button#ajaxTest").click(function(){
+        $("span#ajaxResponse").text("pending...");
+        $.ajax({
+            url: "ajax_processor.php", 
+            success: function(){
+                $("span#ajaxResponse").text("success");
+            },
+            error: function (){
+                $("span#ajaxResponse").text("error");
+            }
+        });
+    });
+</script>
+';
 
 ?>
