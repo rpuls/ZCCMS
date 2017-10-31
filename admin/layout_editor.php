@@ -13,7 +13,7 @@ $svg_images = array_filter(scandir('../assets/svg'), function($item) {
     }
 });
 echo "<div style=' font-weight:bold;'>Chose edge style</div>";
-echo "<select class='form-control col-12'>";
+echo "<select id='svgSelect' class='form-control col-12'>";
 echo "<option>None (flat)</option>";
 foreach($svg_images as $svg) {
     $svg = substr($svg, 0, -4);
@@ -44,21 +44,27 @@ echo "</div>";	//blue box div end
 echo "</div>\n"; //show/hide div end
 
 //javascript
-echo '
+echo "
 <script>
-    $("button#ajaxTest").click(function(){
-        $("span#ajaxResponse").text("pending...");
-        $.ajax({
-            url: "ajax_processor.php", 
-            success: function(){
-                $("span#ajaxResponse").text("success");
-            },
-            error: function (){
-                $("span#ajaxResponse").text("error");
-            }
-        });
+$('button#ajaxTest').click(function(){
+    var data = {}
+    data.action = 'layout';
+    data.svg = $('select#svgSelect').val();
+    console.log(data);
+    $('span#ajaxResponse').text('pending...');
+    $.ajax({
+        url: 'ajax_processor.php',
+        type: 'post',
+        data: data,
+        success: function(data){
+            $('span#ajaxResponse').text(data);
+        },
+        error: function (){
+            $('span#ajaxResponse').text('error :(');
+        }
     });
+});
 </script>
-';
+";
 
 ?>
