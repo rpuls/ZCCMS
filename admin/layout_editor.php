@@ -72,7 +72,9 @@ echo "
 				xmlns:xlink='http://www.w3.org/1999/xlink' 
 				viewBox='0 0 2000 150' 
 				xml:space='preserve'>				
-				<path id='path' d='M2000 150L2000 75L0 75L0 150L2000 150Z'/>
+				<path id='path1' d=''/>
+				<path id='path2' d=''/>
+				<path id='path3' d=''/>
 			</svg>
 
 			<div id='sectionDiv' style='background-color: red;'>
@@ -101,8 +103,11 @@ $getSvgSQL = "SELECT * FROM  `tblSvgs`";
 $res = mysqli_query($mysqli_link, $getSvgSQL);
 while($svg = mysqli_fetch_assoc($res)) {
 	$name = $svg['Name'];
-	$path = $svg['Path'];
-	echo "svgContentArray.push({ name : '$name', path : '$path'});";
+	$path1 = $svg['Path1'];
+	$path2 = $svg['Path2'];
+	$path3 = $svg['Path3'];
+	$type = $svg['Type'];
+	echo "svgContentArray.push({ name : '$name', path1 : '$path1', path2 : '$path2', path3 : '$path3', type : '$type'});";
 }
 
 echo "
@@ -122,7 +127,9 @@ $('.layoutField').each(function(i, obj) {
 });
 
 $('select#svgSelect').on('change', function(){
-	$('path#path').attr('d', svgContentArray[this.value].path);
+	$('path#path1').attr('d', svgContentArray[this.value].path1);
+	$('path#path2').attr('d', svgContentArray[this.value].path2);
+	$('path#path3').attr('d', svgContentArray[this.value].path3);
 });
 
 $('input#svgColor').on('change', function(){
