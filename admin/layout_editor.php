@@ -83,6 +83,19 @@ echo "<div id='sh0.5'>";
 								$('#svgR$svgPos').children('#path2').attr('d', svgContentArray[this.value].path2);
 								$('#svgR$svgPos').children('#path3').attr('d', svgContentArray[this.value].path3);
 							}
+
+							// disable/enable color inputs
+							if(svgContentArray[this.value].path2 == ''){
+								$('input#path2Color$svgPos').prop('disabled', true);
+							}else{
+								$('input#path2Color$svgPos').prop('disabled', false);
+							}
+
+							if(svgContentArray[this.value].path3 == ''){
+								$('input#path3Color$svgPos').prop('disabled', true);
+							}else{
+								$('input#path3Color$svgPos').prop('disabled', false);
+							}
 						});
 						
 						$('input#path1Color$svgPos').on('change', function(){
