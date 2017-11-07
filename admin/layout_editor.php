@@ -47,7 +47,6 @@ echo "<div id='sh0.5'>";
 	while($svgPos <= 10){
 		$posSpan = "";
 		$type = "";
-		$svgID = "svg".$svgPos;
 		if($svgPos <= 3){
 			$type = "edge";
 			$posSpan = "Edge ".$svgPos;
@@ -76,21 +75,35 @@ echo "<div id='sh0.5'>";
 						});
 
 						$('select#svgSelect$svgPos').on('change', function(){
-							$('#$svgID').children('#path1').attr('d', svgContentArray[this.value].path1);
-							$('#$svgID').children('#path2').attr('d', svgContentArray[this.value].path2);
-							$('#$svgID').children('#path3').attr('d', svgContentArray[this.value].path3);
+							$('#svg$svgPos').children('#path1').attr('d', svgContentArray[this.value].path1);
+							$('#svg$svgPos').children('#path2').attr('d', svgContentArray[this.value].path2);
+							$('#svg$svgPos').children('#path3').attr('d', svgContentArray[this.value].path3);
+							if(svgContentArray[this.value].type == 'corner'){
+								$('#svgR$svgPos').children('#path1').attr('d', svgContentArray[this.value].path1);
+								$('#svgR$svgPos').children('#path2').attr('d', svgContentArray[this.value].path2);
+								$('#svgR$svgPos').children('#path3').attr('d', svgContentArray[this.value].path3);
+							}
 						});
 						
 						$('input#path1Color$svgPos').on('change', function(){
-							$('#$svgID').children('#path1').css('fill', this.value);
+							$('#svg$svgPos').children('#path1').css('fill', this.value);
+							if($svgPos > 3){
+								$('#svgR$svgPos').children('#path1').css('fill', this.value);
+							}
 						});
 
 						$('input#path2Color$svgPos').on('change', function(){
-							$('#$svgID').children('#path2').css('fill', this.value);
+							$('#svg$svgPos').children('#path2').css('fill', this.value);
+							if($svgPos > 3){
+								$('#svgR$svgPos').children('#path2').css('fill', this.value);
+							}
 						});
 
 						$('input#path3Color$svgPos').on('change', function(){
-							$('#$svgID').children('#path3').css('fill', this.value);
+							$('#svg$svgPos').children('#path3').css('fill', this.value);
+							if($svgPos > 3){
+								$('#svgR$svgPos').children('#path3').css('fill', this.value);
+							}
 						});
 					</script>
 		";
@@ -116,7 +129,7 @@ echo "<div id='sh0.5'>";
 				border-radius: 0.25rem;
 			}
 	
-			.section {
+			.previewWindow {
 				width: 100%;
 				text-align-last: center;
 				color: white;
@@ -124,6 +137,10 @@ echo "<div id='sh0.5'>";
 				display: inline-grid;
 			}
 	
+			.section {
+				position: relative;
+			}
+
 			.svgEdge {
 				width: auto;
 				height: auto;
@@ -137,30 +154,57 @@ echo "<div id='sh0.5'>";
 			}
 
 			.svgCorner {
-				width: 5%;
-				fill:  $bgColor;
+				fill:  #ff0000;
+				width: 7%;
 			}
-
-
+			
+			.svgCornerBL{
+				position: absolute;
+				bottom: 0;
+				left: 0;
+			}
+			
+			.svgCornerBR {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				-ms-transform: rotate(270deg); /* IE 9 */
+				-webkit-transform: rotate(270deg); /* Chrome, Safari, Opera */
+				transform: rotate(270deg);
+			}
+			
+			.svgCornerTL{
+				position: absolute;
+				top: 0;
+				right: 0;
+				-ms-transform: rotate(180deg); /* IE 9 */
+				-webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+				transform: rotate(180deg);
+			}
+			
+			.svgCornerTR{
+				position: absolute;
+				top: 0;
+				left: 0;
+				-ms-transform: rotate(90deg); /* IE 9 */
+				-webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+				transform: rotate(90deg);
+			}
 		
 	
 		</style>
 	
 		<div style=' font-weight:bold;'>Preview</div>
 		<div class='previwBox'>
-			<div class='section'>
+			<div class='previewWindow'>
 
-				<div>
+				<div class='section'>
 					<h1>$FB_page_name</h1>
-					<svg class='svgCorner' id='svg4' viewBox='0 0 150 150'>				
-						<path id='path1' d='M0 150L150 150L0 0'/>
-						<path id='path2' d='M9.99 140L125 140L9.99 24.99'/>
-						<path id='path3' d='M20 130L100 130L20 50'/>
+					<svg class='svgCorner svgCornerBL' id='svg4' viewBox='0 0 150 150'>				
+						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
 					</svg>
-					<svg class='svgCorner' id='svg4' viewBox='0 0 150 150'>				
-						<path id='path1' d='M0 150L150 150L0 0'/>
-						<path id='path2' d='M9.99 140L125 140L9.99 24.99'/>
-						<path id='path3' d='M20 130L100 130L20 50'/>
+					<svg class='svgCorner svgCornerBR' id='svgR4' viewBox='0 0 150 150'>				
+						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
 					</svg>
 				</div>
 	
@@ -170,19 +214,44 @@ echo "<div id='sh0.5'>";
 					<path id='path3' d=''/>
 				</svg>
 	
-				<div style='background-color:$bgColor;'>
+				<div class='section' style='background-color:$bgColor;'>
 					<h1>Photos</h1>
-					<p>preview</p>
+					<p>preview mode</p>
+
+					<svg class='svgCorner svgCornerTR' id='svg5' viewBox='0 0 150 150'>				
+						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+					</svg>
+					<svg class='svgCorner svgCornerTL' id='svgR5' viewBox='0 0 150 150'>				
+						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+					</svg>
+					<svg class='svgCorner svgCornerBR' id='svg6' viewBox='0 0 150 150'>				
+						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+					</svg>
+					<svg class='svgCorner svgCornerBL' id='svgR6' viewBox='0 0 150 150'>				
+						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+					</svg>
 				</div>
 
 				<svg class='svgEdge svgEdgeBottom' id='svg2' viewBox='0 0 2000 150'>				
-					<path id='path1' d=''/>
-					<path id='path2' d=''/>
-					<path id='path3' d=''/>
+					<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
 				</svg>
 	
-				<div>
+				<div class='section'>
 					<h1>About us</h1>
+					<p>preview mode</p>
+
+					<svg class='svgCorner svgCornerTR' id='svg7' viewBox='0 0 150 150'>				
+						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+					</svg>
+					<svg class='svgCorner svgCornerTL' id='svgR7' viewBox='0 0 150 150'>				
+						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+					</svg>
+					<svg class='svgCorner svgCornerBR' id='svg8' viewBox='0 0 150 150'>				
+						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+					</svg>
+					<svg class='svgCorner svgCornerBL' id='svgR8' viewBox='0 0 150 150'>				
+						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+					</svg>
 				</div>
 
 				<svg class='svgEdge' id='svg3'viewBox='0 0 2000 150' >				
@@ -191,9 +260,22 @@ echo "<div id='sh0.5'>";
 					<path id='path3' d=''/>
 				</svg>
 
-				<div style='background-color: $bgColor;'>
+				<div class='section' style='background-color: $bgColor;'>
 					<h1>upcoming events</h1>
 					<p>preview</p>
+
+					<svg class='svgCorner svgCornerTR' id='svg9' viewBox='0 0 150 150'>				
+						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+					</svg>
+					<svg class='svgCorner svgCornerTL' id='svgR9' viewBox='0 0 150 150'>				
+						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+					</svg>
+					<svg class='svgCorner svgCornerBR' id='svg10' viewBox='0 0 150 150'>				
+						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+					</svg>
+					<svg class='svgCorner svgCornerBL' id='svgR10' viewBox='0 0 150 150'>				
+						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+					</svg>
 				</div>
 
 			</div>
