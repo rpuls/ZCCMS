@@ -14,6 +14,7 @@ echo "<div id='sh0.5'>";
 	echo "
 	<script>
 		var svgContentArray = [];
+		svgContentArray.push({index_zero:'zero'});
 		";
 		
 		$getSvgSQL = "SELECT * FROM  `tblSvgs`";
@@ -65,11 +66,13 @@ echo "<div id='sh0.5'>";
 					<script>
 						$(document).ready(function() {
 							$.each(svgContentArray, function (i, item) {
-								if(item.type == '$type'){
-									$('#svgSelect$svgPos').append($('<option>', { 
-										value: i,
-										text : item.name 
-									}));
+								if(i != 0){
+									if(item.type == '$type'){
+										$('#svgSelect$svgPos').append($('<option>', { 
+											value: i,
+											text : item.name 
+										}));
+									}
 								}
 							});
 						});
@@ -309,9 +312,23 @@ echo "<div id='sh0.5'>";
 		<script>
 
 		$('button#ajaxTest').click(function(){
-			var data = {}
+			var data = {};
 			data.action = 'layout';
-			data.svg = $('select#svgSelect').val();
+			data.zite_id = $zite_id;
+			";
+		for ($i = 1; $i <= 10; $i++) {
+			echo "
+			var id = $('#svgSelect$i').val();
+			data.se$i = {
+				'svg'		: id,
+				'color1'	: $('#path1Color$i').val(),
+				'color2'	: $('#path2Color$i').val(),
+				'color3'	: $('#path3Color$i').val()
+			}
+			";
+		} 
+		echo "
+		console.log(data);
 			$('span#ajaxResponse').text('pending...');
 			$.ajax({
 				url: 'ajax_processor.php',
