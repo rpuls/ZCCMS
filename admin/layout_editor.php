@@ -99,6 +99,8 @@ echo "<div id='sh0.5'>";
 							}else{
 								$('input#path3Color$svgPos').prop('disabled', false);
 							}
+
+							enableSave();
 						});
 						
 						$('input#path1Color$svgPos').on('change', function(){
@@ -106,6 +108,7 @@ echo "<div id='sh0.5'>";
 							if($svgPos > 3){
 								$('#svgR$svgPos').children('#path1').css('fill', this.value);
 							}
+							enableSave();
 						});
 
 						$('input#path2Color$svgPos').on('change', function(){
@@ -113,6 +116,7 @@ echo "<div id='sh0.5'>";
 							if($svgPos > 3){
 								$('#svgR$svgPos').children('#path2').css('fill', this.value);
 							}
+							enableSave();
 						});
 
 						$('input#path3Color$svgPos').on('change', function(){
@@ -120,6 +124,7 @@ echo "<div id='sh0.5'>";
 							if($svgPos > 3){
 								$('#svgR$svgPos').children('#path3').css('fill', this.value);
 							}
+							enableSave();
 						});
 					</script>
 		";
@@ -206,8 +211,46 @@ echo "<div id='sh0.5'>";
 				-webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
 				transform: rotate(90deg);
 			}
+
+			.abtn {
+				display: inline-block;
+				padding: 6px 12px;
+				margin-bottom: 0;
+				font-size: 14px;
+				font-weight: 400;
+				line-height: 1.42857143;
+				text-align: center;
+				white-space: nowrap;
+				vertical-align: middle;
+				-ms-touch-action: manipulation;
+				touch-action: manipulation;
+				cursor: pointer;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+				background-image: none;
+				border: 1px solid transparent;
+				border-radius: 4px;
+			}
+
+			.abtn-warning {
+				color: #fff;
+				background-color: #f0ad4e;
+				border-color: #eea236;
+			}
+
+			.abtn-success {
+				color: #fff;
+				background-color: #5cb85c;
+				border-color: #4cae4c;
+			}
 		
-	
+			.abtn-danger {
+				color: #fff;
+				background-color: #d9534f;
+				border-color: #d43f3a;
+			}
 		</style>
 	
 		<div style=' font-weight:bold;'>Preview</div>
@@ -300,7 +343,7 @@ echo "<div id='sh0.5'>";
 	echo "</div>";
 	
 	echo "</div>";	//row end
-	echo "<button id='ajaxTest'>ajax test</button><span id='ajaxResponse'></span>";
+	echo "<button class='abtn btn-primary' id='ajaxSave'><b id='ajaxStatus'>SAVE</b></button>";
 	echo "</div>";	//blue box div end
 	echo "</div>\n"; //show/hide div end
 	
@@ -310,8 +353,19 @@ echo "<div id='sh0.5'>";
 		
 		echo "
 		<script>
+		function enableSave(){
+			$('button#ajaxSave')
+			.addClass('btn-primary')
+			.removeClass('abtn-warning')
+			.removeClass('abtn-success')
+			.removeClass('abtn-danger')
+			.prop('disabled',false);
+			$('b#ajaxStatus').text('SAVE');
+		}
 
-		$('button#ajaxTest').click(function(){
+		$('button#ajaxSave').click(function(){
+			$('b#ajaxStatus').text('Pending');
+			$('button#ajaxSave').addClass('abtn-warning').removeClass('btn-primary').prop('disabled',true);
 			var data = {};
 			data.action = 'layout';
 			data.zite_id = $zite_id;
@@ -328,21 +382,19 @@ echo "<div id='sh0.5'>";
 			";
 		} 
 		echo "
-		console.log(data);
-			$('span#ajaxResponse').text('pending...');
 			$.ajax({
 				url: 'ajax_processor.php',
 				type: 'post',
 				data: data,
 				success: function(data){
-					$('span#ajaxResponse').text(data);
+					$('b#ajaxStatus').text('Success');
+					$('button#ajaxSave').addClass('abtn-success').removeClass('abtn-warning');
 				},
 				error: function (){
-					$('span#ajaxResponse').text('error :(');
+					$('b#ajaxStatus').text('Success');
+					$('button#ajaxSave').addClass('abtn-success').removeClass('abtn-danger');
 				}
 			});
 		});
 		</script>
-	";
-
 ?>
