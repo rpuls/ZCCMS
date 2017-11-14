@@ -1,0 +1,156 @@
+<style>
+	.previwBox {
+		width: 100%;
+		display: flex;
+		word-wrap: break-word;
+		background-color: #fff;
+		background-clip: border-box;
+		border: 1px solid rgba(0, 0, 0, 0.125);
+		border-radius: 0.25rem;
+	}
+
+	.previewWindow {
+		width: 100%;
+		text-align-last: center;
+		color: white;
+		font-family: Arial, Helvetica, sans-serif;
+		display: inline-grid;
+	}
+
+	.section {
+		position: relative;
+	}
+	
+	.svgEdge {
+		width: auto;
+		height: auto;
+	}
+
+	.svgEdgeBottom {
+		-ms-transform: rotate(180deg); /* IE 9 */
+		-webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+		transform: rotate(180deg);
+	}
+
+	.svgCorner {
+		width: 7%;
+	}
+	
+	.svgCornerBL{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+	}
+	
+	.svgCornerBR {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		-ms-transform: rotate(270deg); /* IE 9 */
+		-webkit-transform: rotate(270deg); /* Chrome, Safari, Opera */
+		transform: rotate(270deg);
+	}
+	
+	.svgCornerTL{
+		position: absolute;
+		top: 0;
+		right: 0;
+		-ms-transform: rotate(180deg); /* IE 9 */
+		-webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+		transform: rotate(180deg);
+	}
+	
+	.svgCornerTR{
+		position: absolute;
+		top: 0;
+		left: 0;
+		-ms-transform: rotate(90deg); /* IE 9 */
+		-webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+		transform: rotate(90deg);
+	}
+</style>
+
+<div style='font-weight:bold;'>Desktop Preview</div>
+<div class='previwBox'>
+	<div class='previewWindow'>
+
+		<div class='section'>
+			<h1 id='pTitle'></h1>
+			<svg class='svgCorner svgCornerBL' id='svg4' viewBox='0 0 150 150'>				
+				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+			</svg>
+			<svg class='svgCorner svgCornerBR' id='svgR4' viewBox='0 0 150 150'>				
+				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+			</svg>
+		</div>
+
+		<svg class='svgEdge' id='svg1' viewBox='0 0 2000 150'>				
+			<path id='path1' d=''/>
+			<path id='path2' d=''/>
+			<path id='path3' d=''/>
+		</svg>
+
+		<div class='section sectionBg'>
+			<h1>Photos</h1>
+			<p>preview mode</p>
+
+			<svg class='svgCorner svgCornerTR' id='svg5' viewBox='0 0 150 150'>				
+				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+			</svg>
+			<svg class='svgCorner svgCornerTL' id='svgR5' viewBox='0 0 150 150'>				
+				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+			</svg>
+			<svg class='svgCorner svgCornerBR' id='svg6' viewBox='0 0 150 150'>				
+				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+			</svg>
+			<svg class='svgCorner svgCornerBL' id='svgR6' viewBox='0 0 150 150'>				
+				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+			</svg>
+		</div>
+
+		<svg class='svgEdge svgEdgeBottom' id='svg2' viewBox='0 0 2000 150'>				
+			<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+		</svg>
+
+		<div class='section'>
+			<h1>About us</h1>
+			<svg class='svgCorner svgCornerTR' id='svg7' viewBox='0 0 150 150'>				
+				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+			</svg>
+			<svg class='svgCorner svgCornerTL' id='svgR7' viewBox='0 0 150 150'>				
+				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+			</svg>
+			<svg class='svgCorner svgCornerBR' id='svg8' viewBox='0 0 150 150'>				
+				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+			</svg>
+			<svg class='svgCorner svgCornerBL' id='svgR8' viewBox='0 0 150 150'>				
+				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+			</svg>
+		</div>
+
+		<svg class='svgEdge' id='svg3'viewBox='0 0 2000 150' >				
+			<path id='path1' d=''/>
+			<path id='path2' d=''/>
+			<path id='path3' d=''/>
+		</svg>
+
+		<div class='section sectionBg' style='background-color: $bgColor;'>
+			<h1>upcoming events</h1>
+			<p>preview</p>
+
+			<svg class='svgCorner svgCornerTR' id='svg9' viewBox='0 0 150 150'>				
+				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+			</svg>
+			<svg class='svgCorner svgCornerTL' id='svgR9' viewBox='0 0 150 150'>				
+				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+			</svg>
+			<svg class='svgCorner svgCornerBR' id='svg10' viewBox='0 0 150 150'>				
+				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+			</svg>
+			<svg class='svgCorner svgCornerBL' id='svgR10' viewBox='0 0 150 150'>				
+				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
+			</svg>
+		</div>
+
+	</div>
+</div>

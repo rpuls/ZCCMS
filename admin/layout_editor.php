@@ -1,6 +1,6 @@
 <?php
 
-echo "<div id='sh0.5'>";
+	echo "<div id='sh0.5'>";
 	echo "<div style='max-width:770px; margin:4px 4px 4px 4px; padding:5px; z-index:90; position:relative;' id='blue' class='visible-xsX alert alert-info'>";	
 	echo "<div style='border-bottom:solid; border-bottom-width:1px; font-weight:bold;'>Webzite layout</div>";
 	
@@ -33,7 +33,7 @@ echo "<div id='sh0.5'>";
 	//left panel (editor)
 	echo "
 		<div class='col-md-7 col-xs-12'>
-			<table class='table'>
+			<table>
 				<thead>
 					<tr>
 						<th>Position</th>
@@ -59,9 +59,9 @@ echo "<div id='sh0.5'>";
 					<tr>
 						<td><span>$posSpan</span></td>
 						<td><select id='svgSelect$svgPos' class='form-control'></select></td>
-						<td><input id='path1Color$svgPos' type='color' value='$bgColor' class='form-control' style='padding: 2px;'></td>
-						<td><input id='path2Color$svgPos' type='color' value='$bgColor' class='form-control' style='padding: 2px;'></td>
-						<td><input id='path3Color$svgPos' type='color' value='$bgColor' class='form-control' style='padding: 2px;'></td>
+						<td><div id='div1c$svgPos'><input id='path1Color$svgPos' type=text value='$bgColor' class='spectrumControl'></div></td>
+						<td><div id='div2c$svgPos'><input id='path2Color$svgPos' type=text value='$bgColor' class='spectrumControl'></div></td>
+						<td><div id='div3c$svgPos'><input id='path3Color$svgPos' type=text value='$bgColor' class='spectrumControl'></div></td>
 					</tr>
 					<script>
 						$(document).ready(function() {
@@ -88,16 +88,22 @@ echo "<div id='sh0.5'>";
 							}
 
 							// disable/enable color inputs
-							if(svgContentArray[this.value].path2 == ''){
-								$('input#path2Color$svgPos').prop('disabled', true);
+							if(svgContentArray[this.value].path1 == ''){
+								$('div#div1c$svgPos').fadeOut(1000);
 							}else{
-								$('input#path2Color$svgPos').prop('disabled', false);
+								$('div#div1c$svgPos').fadeIn(1000);
+							}
+							
+							if(svgContentArray[this.value].path2 == ''){
+								$('div#div2c$svgPos').fadeOut(1000);
+							}else{
+								$('div#div2c$svgPos').fadeIn(1000);
 							}
 
 							if(svgContentArray[this.value].path3 == ''){
-								$('input#path3Color$svgPos').prop('disabled', true);
+								$('div#div3c$svgPos').fadeOut(1000);
 							}else{
-								$('input#path3Color$svgPos').prop('disabled', false);
+								$('div#div3c$svgPos').fadeIn(1000);
 							}
 
 							enableSave();
@@ -135,212 +141,55 @@ echo "<div id='sh0.5'>";
 			</table>
 		</div>
 	";
+	
 	//right panel (preview)
-	
 	echo "<div class='col-md-5 col-xs-12'>";
-	echo "
-		<style>
-			.previwBox {
-				width: 100%;
-				display: flex;
-				word-wrap: break-word;
-				background-color: #fff;
-				background-clip: border-box;
-				border: 1px solid rgba(0, 0, 0, 0.125);
-				border-radius: 0.25rem;
-			}
-	
-			.previewWindow {
-				width: 100%;
-				text-align-last: center;
-				color: white;
-				font-family: Arial, Helvetica, sans-serif;
-				display: inline-grid;
-			}
-	
-			.section {
-				position: relative;
-			}
-
-			.svgEdge {
-				width: auto;
-				height: auto;
-				fill:  $bgColor;
-			}
-
-			.svgEdgeBottom {
-				-ms-transform: rotate(180deg); /* IE 9 */
-				-webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
-				transform: rotate(180deg);
-			}
-
-			.svgCorner {
-				fill:  #ff0000;
-				width: 7%;
-			}
-			
-			.svgCornerBL{
-				position: absolute;
-				bottom: 0;
-				left: 0;
-			}
-			
-			.svgCornerBR {
-				position: absolute;
-				bottom: 0;
-				right: 0;
-				-ms-transform: rotate(270deg); /* IE 9 */
-				-webkit-transform: rotate(270deg); /* Chrome, Safari, Opera */
-				transform: rotate(270deg);
-			}
-			
-			.svgCornerTL{
-				position: absolute;
-				top: 0;
-				right: 0;
-				-ms-transform: rotate(180deg); /* IE 9 */
-				-webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
-				transform: rotate(180deg);
-			}
-			
-			.svgCornerTR{
-				position: absolute;
-				top: 0;
-				left: 0;
-				-ms-transform: rotate(90deg); /* IE 9 */
-				-webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-				transform: rotate(90deg);
-			}
-
-			.abtn {
-				display: inline-block;
-				padding: 6px 12px;
-				margin-bottom: 0;
-				font-size: 14px;
-				font-weight: 400;
-				line-height: 1.42857143;
-				text-align: center;
-				white-space: nowrap;
-				vertical-align: middle;
-				-ms-touch-action: manipulation;
-				touch-action: manipulation;
-				cursor: pointer;
-				-webkit-user-select: none;
-				-moz-user-select: none;
-				-ms-user-select: none;
-				user-select: none;
-				background-image: none;
-				border: 1px solid transparent;
-				border-radius: 4px;
-			}
-
-			.abtn-warning {
-				color: #fff;
-				background-color: #f0ad4e;
-				border-color: #eea236;
-			}
-
-			.abtn-success {
-				color: #fff;
-				background-color: #5cb85c;
-				border-color: #4cae4c;
-			}
-		
-			.abtn-danger {
-				color: #fff;
-				background-color: #d9534f;
-				border-color: #d43f3a;
-			}
-		</style>
-	
-		<div style=' font-weight:bold;'>Preview</div>
-		<div class='previwBox'>
-			<div class='previewWindow'>
-
-				<div class='section'>
-					<h1>$FB_page_name</h1>
-					<svg class='svgCorner svgCornerBL' id='svg4' viewBox='0 0 150 150'>				
-						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
-					</svg>
-					<svg class='svgCorner svgCornerBR' id='svgR4' viewBox='0 0 150 150'>				
-						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
-					</svg>
-				</div>
-	
-				<svg class='svgEdge' id='svg1' viewBox='0 0 2000 150'>				
-					<path id='path1' d=''/>
-					<path id='path2' d=''/>
-					<path id='path3' d=''/>
-				</svg>
-	
-				<div class='section' style='background-color:$bgColor;'>
-					<h1>Photos</h1>
-					<p>preview mode</p>
-
-					<svg class='svgCorner svgCornerTR' id='svg5' viewBox='0 0 150 150'>				
-						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
-					</svg>
-					<svg class='svgCorner svgCornerTL' id='svgR5' viewBox='0 0 150 150'>				
-						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
-					</svg>
-					<svg class='svgCorner svgCornerBR' id='svg6' viewBox='0 0 150 150'>				
-						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
-					</svg>
-					<svg class='svgCorner svgCornerBL' id='svgR6' viewBox='0 0 150 150'>				
-						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
-					</svg>
-				</div>
-
-				<svg class='svgEdge svgEdgeBottom' id='svg2' viewBox='0 0 2000 150'>				
-					<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
-				</svg>
-	
-				<div class='section'>
-					<h1>About us</h1>
-					<p>preview mode</p>
-
-					<svg class='svgCorner svgCornerTR' id='svg7' viewBox='0 0 150 150'>				
-						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
-					</svg>
-					<svg class='svgCorner svgCornerTL' id='svgR7' viewBox='0 0 150 150'>				
-						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
-					</svg>
-					<svg class='svgCorner svgCornerBR' id='svg8' viewBox='0 0 150 150'>				
-						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
-					</svg>
-					<svg class='svgCorner svgCornerBL' id='svgR8' viewBox='0 0 150 150'>				
-						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
-					</svg>
-				</div>
-
-				<svg class='svgEdge' id='svg3'viewBox='0 0 2000 150' >				
-					<path id='path1' d=''/>
-					<path id='path2' d=''/>
-					<path id='path3' d=''/>
-				</svg>
-
-				<div class='section' style='background-color: $bgColor;'>
-					<h1>upcoming events</h1>
-					<p>preview</p>
-
-					<svg class='svgCorner svgCornerTR' id='svg9' viewBox='0 0 150 150'>				
-						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
-					</svg>
-					<svg class='svgCorner svgCornerTL' id='svgR9' viewBox='0 0 150 150'>				
-						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
-					</svg>
-					<svg class='svgCorner svgCornerBR' id='svg10' viewBox='0 0 150 150'>				
-						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
-					</svg>
-					<svg class='svgCorner svgCornerBL' id='svgR10' viewBox='0 0 150 150'>				
-						<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
-					</svg>
-				</div>
-
-			</div>
-		</div>
-	";
+	echo file_get_contents("../includes/preview.html");
 	echo "</div>";
+	
+	echo "
+	<style>
+		.abtn {
+			display: inline-block;
+			padding: 6px 12px;
+			margin-bottom: 0;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 1.42857143;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: middle;
+			-ms-touch-action: manipulation;
+			touch-action: manipulation;
+			cursor: pointer;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			background-image: none;
+			border: 1px solid transparent;
+			border-radius: 4px;
+		}
+
+		.abtn-warning {
+			color: #fff;
+			background-color: #f0ad4e;
+			border-color: #eea236;
+		}
+
+		.abtn-success {
+			color: #fff;
+			background-color: #5cb85c;
+			border-color: #4cae4c;
+		}
+	
+		.abtn-danger {
+			color: #fff;
+			background-color: #d9534f;
+			border-color: #d43f3a;
+		}
+	</style>
+	";
 	
 	echo "</div>";	//row end
 	echo "<button class='abtn btn-primary' id='ajaxSave'><b id='ajaxStatus'>SAVE</b></button>";
@@ -349,10 +198,20 @@ echo "<div id='sh0.5'>";
 	
 	
 	//javascript ajax
-	
-		
 		echo "
 		<script>
+
+		$(document).ready(function() {
+			setPreview();
+		});
+
+		function setPreview(){
+			$('#pTitle').text('$FB_page_name');
+			$('.svgCorner').css('fill', '$bgColor');
+			$('.svgEdge').css('fill', '$bgColor');
+			$('.sectionBg').css('background-color', '$bgColor');
+		}
+
 		function enableSave(){
 			$('button#ajaxSave')
 			.addClass('btn-primary')
@@ -397,4 +256,5 @@ echo "<div id='sh0.5'>";
 			});
 		});
 		</script>
+	";
 ?>
