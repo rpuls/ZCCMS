@@ -11,22 +11,37 @@
 		$bgColor = $val['value'];
 	}
 
+	
 	echo "
 	<script>
-		var svgContentArray = [];
-		svgContentArray.push({index_zero:'zero'});
-		";
-		
-		$getSvgSQL = "SELECT * FROM  `tblSvgs`";
-		$res = mysqli_query($mysqli_link, $getSvgSQL);
-		while($svg = mysqli_fetch_assoc($res)) {
-			$name = $svg['Name'];
-			$path1 = $svg['Path1'];
-			$path2 = $svg['Path2'];
-			$path3 = $svg['Path3'];
-			$type = strtolower ($svg['Type']);
-			echo "svgContentArray.push({ name : '$name', path1 : '$path1', path2 : '$path2', path3 : '$path3', type : '$type'});";
-		}
+	var svgContentArray = [];
+	var svgSettingsArray = [];
+	svgContentArray.push({index_zero:'zero'}); //because we need to start from 1 since the mysql ID cant be 0.
+	svgSettingsArray.push({index_zero:'zero'});
+	";
+	
+	$getSvgSQL = "SELECT * FROM  `tblSvgs`";
+	$res = mysqli_query($mysqli_link, $getSvgSQL);
+	while($svg = mysqli_fetch_assoc($res)) {
+		$name = $svg['Name'];
+		$path1 = $svg['Path1'];
+		$path2 = $svg['Path2'];
+		$path3 = $svg['Path3'];
+		$type = strtolower ($svg['Type']);
+		echo "svgContentArray.push({ name : '$name', path1 : '$path1', path2 : '$path2', path3 : '$path3', type : '$type'});";
+	}
+
+	$svgElementSQL = "SELECT * FROM `tblSvgElement` WHERE `PlaceID` = $zite_id;";
+	$res = mysqli_query($mysqli_link, $svgElementSQL);
+	while($prop = mysqli_fetch_assoc($res)) {
+		$pos = $prop['SVGPosition'];
+		$svg = $prop['SVG'];
+		$p1c = $prop['Path1Color'];
+		$p2c = $prop['Path2Color'];
+		$p3c = $prop['Path3Color'];
+		echo "svgSettingsArray.push({pos : '$pos', svg : '$svg', p1c : '$p1c', p3c : '$p2c', p3c : '$p3c'});";
+	}
+
 	echo "</script>";
 
 	echo "<div class='row'>"; //row start
@@ -59,20 +74,28 @@
 					<tr>
 						<td><span>$posSpan</span></td>
 						<td><select id='svgSelect$svgPos' class='form-control'></select></td>
-						<td><div id='div1c$svgPos'><input id='path1Color$svgPos' type=text value='$bgColor' class='spectrumControl'></div></td>
-						<td><div id='div2c$svgPos'><input id='path2Color$svgPos' type=text value='$bgColor' class='spectrumControl'></div></td>
-						<td><div id='div3c$svgPos'><input id='path3Color$svgPos' type=text value='$bgColor' class='spectrumControl'></div></td>
+						<td><div style='display : none;' id='div1c$svgPos'><input id='path1Color$svgPos' type=text value='$bgColor' class='spectrumControl'></div></td>
+						<td><div style='display : none;' id='div2c$svgPos'><input id='path2Color$svgPos' type=text value='$bgColor' class='spectrumControl'></div></td>
+						<td><div style='display : none;' id='div3c$svgPos'><input id='path3Color$svgPos' type=text value='$bgColor' class='spectrumControl'></div></td>
 					</tr>
 					<script>
 						$(document).ready(function() {
 							$.each(svgContentArray, function (i, item) {
 								if(i != 0){
 									if(item.type == '$type'){
-										$('#svgSelect$svgPos').append($('<option>', { 
+										$('select#svgSelect$svgPos').append($('<option>', { 
 											value: i,
 											text : item.name 
 										}));
 									}
+								}
+							});
+							$.each(svgSettingsArray, function (i, val){
+								if(i == val.pos){
+									$('select#svgSelect'+i).val(val.svg).trigger('change');
+									$('input#path1Color'+i).val(val.p1c).trigger('change').next('div').find('div').find('div').css('background-color', val.p1c);;
+									$('input#path2Color'+i).val(val.p2c).trigger('change').next('div').find('div').find('div').css('background-color', val.p2c);;
+									$('input#path3Color'+i).val(val.p3c).trigger('change').next('div').find('div').find('div').css('background-color', val.p3c);;
 								}
 							});
 						});
@@ -87,7 +110,7 @@
 								$('#svgR$svgPos').children('#path3').attr('d', svgContentArray[this.value].path3);
 							}
 
-							// disable/enable color inputs
+							// show/hide color inputs
 							if(svgContentArray[this.value].path1 == ''){
 								$('div#div1c$svgPos').fadeOut(1000);
 							}else{
