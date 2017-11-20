@@ -3,6 +3,7 @@
 		width: 100%;
 		display: flex;
 		word-wrap: break-word;
+		background-image: url('http://zitecraft-dev.cloud.tilaa.com/customer_backgrounds/0/431/3background_image.jpg');
 		background-color: #fff;
 		background-clip: border-box;
 		border: 1px solid rgba(0, 0, 0, 0.125);
@@ -19,17 +20,23 @@
 
 	.section {
 		position: relative;
+		padding-top: 10px;
+		padding-bottom: 10px;
 	}
+
 	
 	.svgEdge {
 		width: auto;
 		height: auto;
+		position: absolute;
+		bottom: 0;
 	}
 
 	.svgEdgeBottom {
 		-ms-transform: rotate(180deg); /* IE 9 */
 		-webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
 		transform: rotate(180deg);
+		top: 0 !important;
 	}
 
 	.svgCorner {
@@ -75,24 +82,25 @@
 	<div class='previewWindow'>
 
 		<div class='section'>
-			<h1 id='pTitle'></h1>
+			<h1 style='color:#fff' id='pTitle'></h1>
+			<br>
 			<svg class='svgCorner svgCornerBL' id='svg4' viewBox='0 0 150 150'>				
 				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
 			</svg>
 			<svg class='svgCorner svgCornerBR' id='svgR4' viewBox='0 0 150 150'>				
 				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
 			</svg>
+
+			<svg class='svgEdge' id='svg1' viewBox='0 0 2000 150'>				
+				<path id='path1' d=''/>
+				<path id='path2' d=''/>
+				<path id='path3' d=''/>
+			</svg>
 		</div>
 
-		<svg class='svgEdge' id='svg1' viewBox='0 0 2000 150'>				
-			<path id='path1' d='M2000 150L2000 75L0 75L0 150L2000 150Z'/>
-			<path id='path2' d=''/>
-			<path id='path3' d=''/>
-		</svg>
-
 		<div class='section sectionBg'>
-			<h1>Photos</h1>
-			<p>preview mode</p>
+			<h1 style='color:#fff'>Photos</h1>
+			<br>
 
 			<svg class='svgCorner svgCornerTR' id='svg5' viewBox='0 0 150 150'>				
 				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
@@ -108,15 +116,16 @@
 			</svg>
 		</div>
 
-		<svg class='svgEdge svgEdgeBottom' id='svg2' viewBox='0 0 2000 150'>				
-			<path id='path1' d='M2000 150L2000 75L0 75L0 150L2000 150Z'/>
-			<path id='path2' d=''/>
-			<path id='path3' d=''/>
-		</svg>
-
+		
 		<div class='section'>
-			<h1>About us</h1>
-			<p>preview</p>
+			<svg class='svgEdge svgEdgeBottom' id='svg2' viewBox='0 0 2000 150'>				
+				<path id='path1' d=''/>
+				<path id='path2' d=''/>
+				<path id='path3' d=''/>
+			</svg>
+
+			<h1 style='color:#fff'>About us</h1>
+			<br>
 			<svg class='svgCorner svgCornerTR' id='svg7' viewBox='0 0 150 150'>				
 				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
 			</svg>
@@ -129,17 +138,18 @@
 			<svg class='svgCorner svgCornerBL' id='svgR8' viewBox='0 0 150 150'>				
 				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
 			</svg>
+
+			<svg class='svgEdge' id='svg3'viewBox='0 0 2000 150' >				
+				<path id='path1' d=''/>
+				<path id='path2' d=''/>
+				<path id='path3' d=''/>
+			</svg>
 		</div>
 
-		<svg class='svgEdge' id='svg3'viewBox='0 0 2000 150' >				
-			<path id='path1' d='M2000 150L2000 75L0 75L0 150L2000 150Z'/>
-			<path id='path2' d=''/>
-			<path id='path3' d=''/>
-		</svg>
 
-		<div class='section sectionBg' style='background-color: $bgColor;'>
-			<h1>upcoming events</h1>
-			<p>preview</p>
+		<div class='section sectionBg'>
+			<h1 style='color:#fff'>upcoming events</h1>
+			<br>
 
 			<svg class='svgCorner svgCornerTR' id='svg9' viewBox='0 0 150 150'>				
 				<path id='path1' d=''/><path id='path2' d=''/><path id='path3' d=''/>
