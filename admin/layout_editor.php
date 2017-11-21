@@ -1,4 +1,21 @@
 <?php
+	// ------------- loading screen by Rasmus Puls
+
+	echo "
+	<div class='loadingDiv'>
+		<div class='loadingInnerDiv'>
+		<img src='http://zitecraft.com/images/home-V2-logo-color.png'>
+		<p style='font-size: 200%;'>Content Management System</p>
+		<div class='loader'></div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function() {
+			console.log('nuuuuu!');
+			$('div.loadingDiv').fadeOut(1000);
+		}, 500);
+	</script>
+	";
 
 	echo "<div id='sh0.5'>";
 	echo "<div style='max-width:770px; margin:4px 4px 4px 4px; padding:5px; z-index:90; position:relative;' id='blue' class='visible-xsX alert alert-info'>";	
@@ -53,9 +70,9 @@
 					<tr>
 						<th>Position</th>
 						<th>Shape style</th>
-						<th>Color</th>
-						<th>Color</th>
-						<th>Color</th>
+						<th>Color 1</th>
+						<th>Color 2</th>
+						<th>Color 3</th>
 					</tr>
 				</thead>
 				<tbody>";
@@ -170,49 +187,6 @@
 	echo file_get_contents("../includes/preview.html");
 	echo "</div>";
 	
-	echo "
-	<style>
-		.abtn {
-			display: inline-block;
-			padding: 6px 12px;
-			margin-bottom: 0;
-			font-size: 14px;
-			font-weight: 400;
-			line-height: 1.42857143;
-			text-align: center;
-			white-space: nowrap;
-			vertical-align: middle;
-			-ms-touch-action: manipulation;
-			touch-action: manipulation;
-			cursor: pointer;
-			-webkit-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
-			user-select: none;
-			background-image: none;
-			border: 1px solid transparent;
-			border-radius: 4px;
-		}
-
-		.abtn-warning {
-			color: #fff;
-			background-color: #f0ad4e;
-			border-color: #eea236;
-		}
-
-		.abtn-success {
-			color: #fff;
-			background-color: #5cb85c;
-			border-color: #4cae4c;
-		}
-	
-		.abtn-danger {
-			color: #fff;
-			background-color: #d9534f;
-			border-color: #d43f3a;
-		}
-	</style>
-	";
 	
 	echo "</div>";	//row end
 	echo "<button class='abtn btn-primary' id='ajaxSave'><b id='ajaxStatus'>SAVE</b></button>";
