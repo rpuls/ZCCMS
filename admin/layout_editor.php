@@ -16,6 +16,8 @@
 		}, 500);
 	</script>
 	";
+	
+	// ------------- Pane 0.5: webzite layout
 
 	echo "<div id='sh0.5'>";
 	echo "<div style='max-width:770px; margin:4px 4px 4px 4px; padding:5px; z-index:90; position:relative;' id='blue' class='visible-xsX alert alert-info'>";	
@@ -56,7 +58,7 @@
 		$p1c = $prop['Path1Color'];
 		$p2c = $prop['Path2Color'];
 		$p3c = $prop['Path3Color'];
-		echo "svgSettingsArray.push({pos : '$pos', svg : '$svg', p1c : '$p1c', p3c : '$p2c', p3c : '$p3c'});";
+		echo "svgSettingsArray.push({pos : '$pos', svg : '$svg', p1c : '$p1c', p2c : '$p2c', p3c : '$p3c'});";
 	}
 
 	echo "</script>";
@@ -91,9 +93,9 @@
 					<tr>
 						<td><span>$posSpan</span></td>
 						<td><select id='svgSelect$svgPos' class='form-control'></select></td>
-						<td><div style='display : none;' id='div1c$svgPos'><input id='path1Color$svgPos' type=text value='$bgColor' class='spectrumControl'></div></td>
-						<td><div style='display : none;' id='div2c$svgPos'><input id='path2Color$svgPos' type=text value='$bgColor' class='spectrumControl'></div></td>
-						<td><div style='display : none;' id='div3c$svgPos'><input id='path3Color$svgPos' type=text value='$bgColor' class='spectrumControl'></div></td>
+						<td><div style='display : none;' id='div1c$svgPos'><input id='path1Color$svgPos' type=text value='$bgColor' class='SVGspectrumControl'></div></td>
+						<td><div style='display : none;' id='div2c$svgPos'><input id='path2Color$svgPos' type=text value='$bgColor' class='SVGspectrumControl'></div></td>
+						<td><div style='display : none;' id='div3c$svgPos'><input id='path3Color$svgPos' type=text value='$bgColor' class='SVGspectrumControl'></div></td>
 					</tr>
 					<script>
 						$(document).ready(function() {
@@ -110,9 +112,9 @@
 							$.each(svgSettingsArray, function (i, val){
 								if(i == val.pos){
 									$('select#svgSelect'+i).val(val.svg).trigger('change');
-									$('input#path1Color'+i).val(val.p1c).trigger('change').next('div').find('div').find('div').css('background-color', val.p1c);;
-									$('input#path2Color'+i).val(val.p2c).trigger('change').next('div').find('div').find('div').css('background-color', val.p2c);;
-									$('input#path3Color'+i).val(val.p3c).trigger('change').next('div').find('div').find('div').css('background-color', val.p3c);;
+									$('input#path1Color'+i).spectrum('set', val.p1c).trigger('change');
+									$('input#path2Color'+i).spectrum('set', val.p2c).trigger('change');
+									$('input#path3Color'+i).spectrum('set', val.p3c).trigger('change');
 								}
 							});
 						});
@@ -150,25 +152,25 @@
 						});
 						
 						$('input#path1Color$svgPos').on('change', function(){
-							$('#svg$svgPos').children('#path1').css('fill', this.value);
+							$('#svg$svgPos').children('#path1').css('fill', $('input#path1Color$svgPos').spectrum('get').toRgbString());
 							if($svgPos > 3){
-								$('#svgR$svgPos').children('#path1').css('fill', this.value);
+								$('#svgR$svgPos').children('#path1').css('fill', $('input#path1Color$svgPos').spectrum('get').toRgbString());
 							}
 							enableSave();
 						});
 
 						$('input#path2Color$svgPos').on('change', function(){
-							$('#svg$svgPos').children('#path2').css('fill', this.value);
+							$('#svg$svgPos').children('#path2').css('fill', $('input#path2Color$svgPos').spectrum('get').toRgbString());
 							if($svgPos > 3){
-								$('#svgR$svgPos').children('#path2').css('fill', this.value);
+								$('#svgR$svgPos').children('#path2').css('fill', $('input#path2Color$svgPos').spectrum('get').toRgbString());
 							}
 							enableSave();
 						});
 
 						$('input#path3Color$svgPos').on('change', function(){
-							$('#svg$svgPos').children('#path3').css('fill', this.value);
+							$('#svg$svgPos').children('#path3').css('fill', $('input#path3Color$svgPos').spectrum('get').toRgbString());
 							if($svgPos > 3){
-								$('#svgR$svgPos').children('#path3').css('fill', this.value);
+								$('#svgR$svgPos').children('#path3').css('fill', $('input#path3Color$svgPos').spectrum('get').toRgbString());
 							}
 							enableSave();
 						});
@@ -197,6 +199,16 @@
 	//javascript ajax
 		echo "
 		<script>
+		$('.SVGspectrumControl').spectrum({
+			showPalette: true,
+			showSelectionPalette: true,
+			showInitial: true,
+			showInput: true,
+			showAlpha: true,
+			preferredFormat: 'hex',
+			localStorageKey: 'spectrum.zitecraft'
+		});
+
 
 		$(document).ready(function() {
 			setPreview();
@@ -231,9 +243,9 @@
 			var id = $('#svgSelect$i').val();
 			data.se$i = {
 				'svg'		: id,
-				'color1'	: $('#path1Color$i').val(),
-				'color2'	: $('#path2Color$i').val(),
-				'color3'	: $('#path3Color$i').val()
+				'color1'	: $('#path1Color$i').spectrum('get').toRgbString(),
+				'color2'	: $('#path2Color$i').spectrum('get').toRgbString(),
+				'color3'	: $('#path3Color$i').spectrum('get').toRgbString()
 			}
 			";
 		} 
