@@ -9,19 +9,13 @@
 		<div class='loader'></div>
 		</div>
 	</div>
-	<script>
-		$(document).ready(function() {
-			console.log('nuuuuu!');
-			$('div.loadingDiv').fadeOut(1000);
-		}, 500);
-	</script>
 	";
 	
-	// ------------- Pane 0.5: webzite layout
+	// ------------- Pane 0.5: Section styling (svg editor)
 
-	echo "<div id='sh0.5'>";
+	echo "<div style='display:none;' class='shTab' name='Section Styling' id='sh0.5'>";
 	echo "<div style='max-width:770px; margin:4px 4px 4px 4px; padding:5px; z-index:90; position:relative;' id='blue' class='visible-xsX alert alert-info'>";	
-	echo "<div style='border-bottom:solid; border-bottom-width:1px; font-weight:bold;'>Webzite layout</div>";
+	echo "<div style='border-bottom:solid; border-bottom-width:1px; font-weight:bold;'>Section Styling</div>";
 	
 	$bgColor = "#f9e7da";
 	$getBGColorSQL = "SELECT value FROM `tblTemplateElementSettings` WHERE `PlaceID` = $zite_id  AND `TemplateElementID` = 2;";
@@ -30,7 +24,6 @@
 		$bgColor = $val['value'];
 	}
 
-	
 	echo "
 	<script>
 	var svgContentArray = [];
@@ -117,63 +110,63 @@
 									$('input#path3Color'+i).spectrum('set', val.p3c).trigger('change');
 								}
 							});
-						});
 
-						$('select#svgSelect$svgPos').on('change', function(){
-							$('#svg$svgPos').children('#path1').attr('d', svgContentArray[this.value].path1);
-							$('#svg$svgPos').children('#path2').attr('d', svgContentArray[this.value].path2);
-							$('#svg$svgPos').children('#path3').attr('d', svgContentArray[this.value].path3);
-							if(svgContentArray[this.value].type == 'corner'){
-								$('#svgR$svgPos').children('#path1').attr('d', svgContentArray[this.value].path1);
-								$('#svgR$svgPos').children('#path2').attr('d', svgContentArray[this.value].path2);
-								$('#svgR$svgPos').children('#path3').attr('d', svgContentArray[this.value].path3);
-							}
+							$('select#svgSelect$svgPos').on('change', function(){
+								$('#svg$svgPos').children('#path1').attr('d', svgContentArray[this.value].path1);
+								$('#svg$svgPos').children('#path2').attr('d', svgContentArray[this.value].path2);
+								$('#svg$svgPos').children('#path3').attr('d', svgContentArray[this.value].path3);
+								if(svgContentArray[this.value].type == 'corner'){
+									$('#svgR$svgPos').children('#path1').attr('d', svgContentArray[this.value].path1);
+									$('#svgR$svgPos').children('#path2').attr('d', svgContentArray[this.value].path2);
+									$('#svgR$svgPos').children('#path3').attr('d', svgContentArray[this.value].path3);
+								}
 
-							// show/hide color inputs
-							if(svgContentArray[this.value].path1 == ''){
-								$('div#div1c$svgPos').fadeOut(1000);
-							}else{
-								$('div#div1c$svgPos').fadeIn(1000);
-							}
+								// show/hide color inputs
+								if(svgContentArray[this.value].path1 == ''){
+									$('div#div1c$svgPos').fadeOut(1000);
+								}else{
+									$('div#div1c$svgPos').fadeIn(1000);
+								}
+								
+								if(svgContentArray[this.value].path2 == ''){
+									$('div#div2c$svgPos').fadeOut(1000);
+								}else{
+									$('div#div2c$svgPos').fadeIn(1000);
+								}
+
+								if(svgContentArray[this.value].path3 == ''){
+									$('div#div3c$svgPos').fadeOut(1000);
+								}else{
+									$('div#div3c$svgPos').fadeIn(1000);
+								}
+
+								enableSave();
+							});
 							
-							if(svgContentArray[this.value].path2 == ''){
-								$('div#div2c$svgPos').fadeOut(1000);
-							}else{
-								$('div#div2c$svgPos').fadeIn(1000);
-							}
+							$('input#path1Color$svgPos').on('change', function(){
+								$('#svg$svgPos').children('#path1').css('fill', $('input#path1Color$svgPos').spectrum('get').toRgbString());
+								if($svgPos > 3){
+									$('#svgR$svgPos').children('#path1').css('fill', $('input#path1Color$svgPos').spectrum('get').toRgbString());
+								}
+								enableSave();
+							});
 
-							if(svgContentArray[this.value].path3 == ''){
-								$('div#div3c$svgPos').fadeOut(1000);
-							}else{
-								$('div#div3c$svgPos').fadeIn(1000);
-							}
+							$('input#path2Color$svgPos').on('change', function(){
+								$('#svg$svgPos').children('#path2').css('fill', $('input#path2Color$svgPos').spectrum('get').toRgbString());
+								if($svgPos > 3){
+									$('#svgR$svgPos').children('#path2').css('fill', $('input#path2Color$svgPos').spectrum('get').toRgbString());
+								}
+								enableSave();
+							});
 
-							enableSave();
-						});
-						
-						$('input#path1Color$svgPos').on('change', function(){
-							$('#svg$svgPos').children('#path1').css('fill', $('input#path1Color$svgPos').spectrum('get').toRgbString());
-							if($svgPos > 3){
-								$('#svgR$svgPos').children('#path1').css('fill', $('input#path1Color$svgPos').spectrum('get').toRgbString());
-							}
-							enableSave();
-						});
-
-						$('input#path2Color$svgPos').on('change', function(){
-							$('#svg$svgPos').children('#path2').css('fill', $('input#path2Color$svgPos').spectrum('get').toRgbString());
-							if($svgPos > 3){
-								$('#svgR$svgPos').children('#path2').css('fill', $('input#path2Color$svgPos').spectrum('get').toRgbString());
-							}
-							enableSave();
-						});
-
-						$('input#path3Color$svgPos').on('change', function(){
-							$('#svg$svgPos').children('#path3').css('fill', $('input#path3Color$svgPos').spectrum('get').toRgbString());
-							if($svgPos > 3){
-								$('#svgR$svgPos').children('#path3').css('fill', $('input#path3Color$svgPos').spectrum('get').toRgbString());
-							}
-							enableSave();
-						});
+							$('input#path3Color$svgPos').on('change', function(){
+								$('#svg$svgPos').children('#path3').css('fill', $('input#path3Color$svgPos').spectrum('get').toRgbString());
+								if($svgPos > 3){
+									$('#svgR$svgPos').children('#path3').css('fill', $('input#path3Color$svgPos').spectrum('get').toRgbString());
+								}
+								enableSave();
+							});
+					});
 					</script>
 		";
 		$svgPos += 1;
