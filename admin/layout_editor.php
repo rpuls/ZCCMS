@@ -192,16 +192,6 @@
 	//javascript ajax
 		echo "
 		<script>
-		$('.SVGspectrumControl').spectrum({
-			showPalette: true,
-			showSelectionPalette: true,
-			showInitial: true,
-			showInput: true,
-			showAlpha: true,
-			preferredFormat: 'hex',
-			localStorageKey: 'spectrum.zitecraft'
-		});
-
 
 		$(document).ready(function() {
 			setPreview();
@@ -230,6 +220,8 @@
 			var data = {};
 			data.action = 'layout';
 			data.zite_id = $zite_id;
+			data.fb_st = '$FacebookSession';
+			data.fb_id = '$FB_page_id';
 			";
 		for ($i = 1; $i <= 10; $i++) {
 			echo "
@@ -251,9 +243,14 @@
 					$('b#ajaxStatus').text('Success');
 					$('button#ajaxSave').addClass('abtn-success').removeClass('abtn-warning');
 				},
-				error: function (){
-					$('b#ajaxStatus').text('Success');
-					$('button#ajaxSave').addClass('abtn-success').removeClass('abtn-danger');
+				error: function (data){
+					$('b#ajaxStatus').text('Error!');
+					$('button#ajaxSave').addClass('abtn-danger').removeClass('abtn-warning');
+					if(data.responseText != '' && data.status == 307){
+						window.location.replace('$base_site_URL' + data.responseText);
+					}else{
+						alert(data.status + '\\n' + data.responseText);
+					}
 				}
 			});
 		});

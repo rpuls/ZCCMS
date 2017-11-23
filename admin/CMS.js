@@ -1,5 +1,3 @@
-var tabs = []; //Array to store jQuery div objects (.shTab)
-
 $(document).ready(function(){
 
 	//Waits ½ a second after document ready to remove loading screen.
@@ -18,7 +16,8 @@ $(document).ready(function(){
 				$('<button/>', {
 				text: tabs[i].attr('name'),
 				id: tabs[i].attr('id'),
-				"class": 'btn btn-success',
+				'class': 'btn btn-success',
+				'style': 'margin: 2px;',
 				click: function (event) {
 					$('button.btn').removeAttr('style');
 					$(this).css({"border-top":"none","border-right":"thin solid #f5f5f5","border-bottom":"thin solid #f5f5f5","border-left":"none", "background-color": "white", "color":"#990632", "box-shadow":" 2px 2px 3px #CCCCCC inset"});
@@ -32,7 +31,7 @@ $(document).ready(function(){
 			})
 		);
 	}
-	
+
 	//Setting for SVG colorpicker
 	$('.SVGspectrumControl').spectrum({
 			showPalette: true,
@@ -43,5 +42,6 @@ $(document).ready(function(){
 			preferredFormat: 'hex',
 			localStorageKey: 'spectrum.zitecraft'
 	});
+
 	
 });
