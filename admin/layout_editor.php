@@ -11,9 +11,9 @@
 	</div>
 	";
 	
-	// ------------- Pane 0.5: Section styling (svg editor)
+	// ------------- Pane 3.5: Section styling (svg editor)
 
-	echo "<div style='display:none;' class='shTab' name='Section Styling' id='sh0.5'>";
+	echo "<div style='display:none;' class='shTab' name='Section Styling' id='sh3.5'>";
 	echo "<div style='max-width:770px; margin:4px 4px 4px 4px; padding:5px; z-index:90; position:relative;' id='blue' class='visible-xsX alert alert-info'>";	
 	echo "<div style='border-bottom:solid; border-bottom-width:1px; font-weight:bold;'>Section Styling</div>";
 	
