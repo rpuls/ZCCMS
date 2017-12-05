@@ -53,14 +53,14 @@ if (!isset( $FacebookSession ) || $FacebookSession === null ) {
 	// no session exists, go back to the lookup page
     header('HTTP/1.1 307');
     echo '/lookup/lookup.php';
-	exit;
+	die();
 }
 
 if(($FB_userid == null) || ($FB_userid == 0) || (!$FB_userid)){
-	error_log("empty FB_userid in manage_form_processor.php ");
+	error_log("empty FB_userid in ajax_processor.php ");
     header('HTTP/1.1 307');
     echo '/lookup/lookup.php'; 
-	exit;
+	die();
 }
 
 $FB_page_id = filter_n(safe_get_GET_OR_POST('fb_id'));
@@ -69,7 +69,7 @@ if(($FB_page_id == null) || ($FB_page_id == 0) || (!$FB_page_id)){
 	error_log("empty FB_page_id in ajax_processor.php ");
 	header('HTTP/1.1 307');
     echo '/lookup/lookup.php';
-	exit;
+	die();
 }
 
 
@@ -88,7 +88,7 @@ try {
     // the enduser is trying to get access to another page by changing the id parameter. Naughty! Give a cryptic error and exit.
     header('HTTP/1.1 503');
     echo "Something went very wrong. Error code: " . $e->getCode();
-    exit();
+    die();
 }
 
 // ----------- If this user is trying to edit a page he may not, exit ungracefully.
@@ -96,7 +96,7 @@ if(!$is_this_the_page_admin){
     error_log("FBUser $FB_userid tried to edit site ". $FB_page_id ." , probably editing the id paramter.");
     header('HTTP/1.1 403');
     echo("You are not alowed to edit this page. 1");
-    exit();
+    die();
 }
 
 
@@ -109,7 +109,7 @@ if((mysqli_num_rows($res) <1) OR !($ArPlaceDetails = mysqli_fetch_assoc($res))) 
     error_log("FBUser $FB_userid tried to edit site ". $FB_page_id ." that does not seem to exist.");
     header('HTTP/1.1 403');
 	echo("You are not alowed to edit this page.");
-	exit();
+	die();
 }else{
 	$site_Style_id = safe_get_Arrayelement($ArPlaceDetails, 'StyleID');
 }
@@ -120,7 +120,7 @@ if(($ArPlaceDetails['FB_ID'] != $FB_page_id) OR ($ArPlaceDetails['ID'] != $zite_
     error_log("FBUser $FB_userid tried to edit site ". safe_get_GET_OR_POST('fb_iid').", $zite_id , but the id's in the database do not seem to match up.");
     header('HTTP/1.1 403');
 	echo("You are not alowed to edit this page. \n" . $ArPlaceDetails['FB_ID'] . " \n x " . $FB_page_id . " \n x " . $zite_id);
-	exit();
+	die();
 }
 
 // ------------------------ END OF AUTHORIZATION! ------------------------
